@@ -1,0 +1,8 @@
+{
+  "name": "RoadSense AI: AI-Powered Road & Civil Structure Vision",
+  "description": "EPICS Environmental Monitoring: Automated Road Damage Detection with Municipal Grievance Ticketing",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}
