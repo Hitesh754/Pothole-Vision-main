@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Model weights and artifacts
+*.pt
+*.onnx
+*.engine
+runs/
+weights/
+*.weights
+
+# Data and uploads
+dataset/raw/
+dataset/processed/
+dataset/images/
+dataset/labels/
+uploads/
+temp/
+*.log
+
+# System and IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.pptx
+

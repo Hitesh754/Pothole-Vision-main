@@ -1,0 +1,74 @@
+# RoadSense AI - Model and Pipeline Configuration
+
+project:
+  name: "RoadSense-AI-Pothole-Detection"
+  version: "1.0.0"
+  task: "detect"
+
+model:
+  architecture: "yolov8s"
+  weights: "yolov8s.pt"
+  input_size: [640, 640]
+  confidence_threshold: 0.40
+  iou_threshold: 0.45
+  max_detections: 50
+  device: "cpu" # 'cpu', '0', '1', etc.
+
+classes:
+  0: "pothole"
+
+training:
+  data_yaml: "dataset/data.yaml"
+  epochs: 80
+  batch_size: 16
+  image_size: 640
+  patience: 15
+  optimizer: "AdamW"
+  lr0: 0.001
+  lrf: 0.01
+  weight_decay: 0.0005
+  warmup_epochs: 3.0
+  augmentations:
+    hsv_h: 0.015
+    hsv_s: 0.7
+    hsv_v: 0.4
+    degrees: 10.0
+    translate: 0.1
+    scale: 0.5
+    fliplr: 0.5
+    mosaic: 1.0
+
+preprocessing:
+  apply_clahe: true
+  clahe_clip_limit: 2.0
+  clahe_tile_grid: [8, 8]
+  apply_bilateral_filter: true
+  bilateral_d: 9
+  bilateral_sigma_color: 75
+  bilateral_sigma_space: 75
+
+authenticity:
+  enable_checks: true
+  ela_quality: 90
+  ela_threshold: 35.0
+  phash_similarity_threshold: 5 # Hamming distance below this indicates duplicate
+  require_exif: false # Live camera stream may strip EXIF; toggle as needed
+
+severity:
+  # Area thresholds as fraction of image frame
+  area_threshold_high: 0.08
+  area_threshold_medium: 0.03
+  # Depth brightness heuristic (darker interior indicates deeper void or water accumulation)
+  depth_intensity_threshold: 65.0
+  # Priority mappings
+  priority_labels:
+    critical: "P1_CRITICAL"
+    high: "P2_HIGH"
+    medium: "P3_MEDIUM"
+    minor: "P4_MINOR"
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 1
+
